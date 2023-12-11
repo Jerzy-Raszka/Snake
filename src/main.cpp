@@ -3,8 +3,9 @@
 #define XPIN 34
 #define YPIN 35
 
-int xPos, yPos, xMap = 0, yMap = 0, xSnPos = 20, ySnPos = 20, dir = 0;
-bool newFrame = true;
+int xPos, yPos, xMap = 0, yMap = 0, xSnPos = 20, ySnPos = 20, dir = 0, xRng,
+                yRng;
+bool newFrame = true, AppleState;
 
 class Field {
 public:
@@ -79,15 +80,29 @@ void loop() {
 
     for (int row = 0; row < 42; row++) {
       for (int col = 0; col < 42; col++) {
+        if (board[row][col].isApple) {
+          AppleState = true;
+        }
         if (board[row][col].isBorder) {
           Serial.print("#");
         } else if (board[row][col].isSnake) {
           Serial.print("S");
+        } else if (board[row][col].isApple) {
+          Serial.print("A");
         } else {
           Serial.print(" ");
         }
       }
       Serial.println("");
+    }
+    if (AppleState == false) {
+      do {
+        xRng = random(1, 40);
+        yRng = random(1, 40);
+
+      } while (board[xRng][yRng].isSnake != false);
+      board[xRng][yRng].isApple = true;
+      AppleState = true;
     }
     newFrame = false;
   }
