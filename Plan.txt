@@ -1,4 +1,3 @@
->Jeśli głowa snake jest na field apple to zwiększa sie score i snakeLenght i apple znika(if pole iSApple == true and isSnake == true -> isApple = false and score/size ++)
 >Dodanie pola lifetime i zmiennej gameframes, gdy pole.isSnake=true to pole.lifetime =gameframes + snakeLenght, 
 	co loop sprawdzanie kazdego pola z isSnake== true czy .lifetime==gameframes jest tak to isSnake=false, co jabłko lifetime każdego pola i snakeLenght +1
 >Dodanie kolizji, jesli głowa snakea dodtknie pola snake albo border to game over(if isSnake == true and isBorder == true -> game over if nowe pole isSnake == true 

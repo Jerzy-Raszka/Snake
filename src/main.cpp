@@ -4,7 +4,7 @@
 #define YPIN 35
 
 int xPos, yPos, xMap = 0, yMap = 0, xSnPos = 20, ySnPos = 20, dir = 0, xRng,
-                yRng;
+                yRng, SnakeLeng = 3, Score;
 bool newFrame = true, AppleState;
 
 class Field {
@@ -82,6 +82,16 @@ void loop() {
       for (int col = 0; col < 42; col++) {
         if (board[row][col].isApple) {
           AppleState = true;
+        }
+      }
+    }
+    for (int row = 0; row < 42; row++) {
+      for (int col = 0; col < 42; col++) {
+        if (board[row][col].isApple && board[row][col].isSnake) {
+          AppleState = false;
+          SnakeLeng = SnakeLeng + 1;
+          Score = Score + 1;
+          board[row][col].isApple = false;
         }
         if (board[row][col].isBorder) {
           Serial.print("#");
