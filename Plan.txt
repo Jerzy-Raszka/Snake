@@ -3,8 +3,10 @@
 >Dodanie kolizji, jesli głowa snakea dodtknie pola snake albo border to game over(if isSnake == true and isBorder == true -> game over if nowe pole isSnake == true 
 	juz przed ustawieniem go na true to gameover)
 >Dodanie przycisków od funkcji startu/restartu gry 
->Dodanie losowości w wyświetlaniu owocu, epoch od uruchomienia do wcisniecia przycisku start/restart
+
+Oled i jego konfiguracja(plansza 126x126px, border 3x3px każde pole 3x3px jako jedna komórka boardu)
+
 >Jeśli game over pojawia sie ekran z napisanem game over i wynikiem koncowym oraz press to restart the game
 >Ekran startowy z napisanem press to start the game
 
-Do zaplanowania: Oled i jego konfiguracja(plansza 126x126px, border 3x3px każde pole 3x3px jako jedna komórka boardu
+
