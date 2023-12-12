@@ -1,9 +1,7 @@
-
->Dodanie przycisków od funkcji startu/restartu gry 
-
 Oled i jego konfiguracja(plansza 126x126px, border 3x3px każde pole 3x3px jako jedna komórka boardu)
 
->Jeśli game over pojawia sie ekran z napisanem game over i wynikiem koncowym oraz press to restart the game
->Ekran startowy z napisanem press to start the game
+>Ekran startowy(tylko przy uruchomieniu), logo jakiegoś węża, duzy napis snake i press to start game
+>Ekran gameover, duzy napis game over score i press to restart the game
+
 
 
