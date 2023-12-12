@@ -4,7 +4,7 @@
 #define YPIN 35
 
 int xPos, yPos, xMap = 0, yMap = 0, xSnPos = 20, ySnPos = 20, dir = 0, xRng,
-                yRng, SnakeLeng = 3, Score;
+                yRng, SnakeLeng = 3, Score, gameFrames;
 bool newFrame = true, AppleState;
 
 class Field {
@@ -12,10 +12,13 @@ public:
   bool isApple;
   bool isSnake = false;
   bool isBorder = false;
+  int lifetime;
 };
 
 Field board[42][42];
 hw_timer_t *LoopTimer = NULL;
+
+void timerEnd(hw_timer_t *timer);
 
 void IRAM_ATTR onTimer() { newFrame = true; }
 
@@ -75,13 +78,19 @@ void loop() {
       ySnPos = ySnPos - 1;
       break;
     }
-
+    if (board[ySnPos][xSnPos].isSnake || board[ySnPos][xSnPos].isBorder) {
+      timerEnd(LoopTimer);
+    }
     board[ySnPos][xSnPos].isSnake = true;
+    board[ySnPos][xSnPos].lifetime = gameFrames + SnakeLeng;
 
     for (int row = 0; row < 42; row++) {
       for (int col = 0; col < 42; col++) {
         if (board[row][col].isApple) {
           AppleState = true;
+        }
+        if (board[row][col].lifetime == gameFrames) {
+          board[row][col].isSnake = false;
         }
       }
     }
@@ -92,6 +101,14 @@ void loop() {
           SnakeLeng = SnakeLeng + 1;
           Score = Score + 1;
           board[row][col].isApple = false;
+
+          for (int row = 0; row < 42; row++) {
+            for (int col = 0; col < 42; col++) {
+              if(board[row][col].isSnake == true){
+                board[row][col].lifetime = board[row][col].lifetime + 1;
+              }
+            }
+          }
         }
         if (board[row][col].isBorder) {
           Serial.print("#");
@@ -114,6 +131,7 @@ void loop() {
       board[xRng][yRng].isApple = true;
       AppleState = true;
     }
+    gameFrames = gameFrames + 1;
     newFrame = false;
   }
 }

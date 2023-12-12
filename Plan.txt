@@ -1,7 +1,4 @@
->Dodanie pola lifetime i zmiennej gameframes, gdy pole.isSnake=true to pole.lifetime =gameframes + snakeLenght, 
-	co loop sprawdzanie kazdego pola z isSnake== true czy .lifetime==gameframes jest tak to isSnake=false, co jabłko lifetime każdego pola i snakeLenght +1
->Dodanie kolizji, jesli głowa snakea dodtknie pola snake albo border to game over(if isSnake == true and isBorder == true -> game over if nowe pole isSnake == true 
-	juz przed ustawieniem go na true to gameover)
+
 >Dodanie przycisków od funkcji startu/restartu gry 
 
 Oled i jego konfiguracja(plansza 126x126px, border 3x3px każde pole 3x3px jako jedna komórka boardu)
