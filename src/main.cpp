@@ -82,7 +82,6 @@ void loop() {
     gameFrames = 0;
     button_time = 0;
     last_button_time = 0;
-    isGameStarted = false;
     isSnakeDead = false;
     AppleState = false;
     for (int row = 0; row < 42; row++) {
@@ -134,6 +133,7 @@ void loop() {
       }
       if (board[ySnPos][xSnPos].isSnake || board[ySnPos][xSnPos].isBorder) {
         isSnakeDead = true;
+        isGameStarted = false;
       }
       board[ySnPos][xSnPos].isSnake = true;
       board[ySnPos][xSnPos].lifetime = gameFrames + SnakeLeng;
