@@ -1,5 +1,3 @@
-Oled i jego konfiguracja(plansza 126x126px, border 3x3px każde pole 3x3px jako jedna komórka boardu)
-
 >Ekran startowy(tylko przy uruchomieniu), logo jakiegoś węża, duzy napis snake i press to start game
 >Ekran gameover, duzy napis game over score i press to restart the game
 
