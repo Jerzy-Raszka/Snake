@@ -1,9 +1,19 @@
 #include <Arduino.h>
+#include <Adafruit_SSD1327.h>
+#include <Adafruit_GFX.h>
 
+#define OLED_CLK 18
+#define OLED_MOSI 23
+#define OLED_CS 5
+#define OLED_DC 32
+#define OLED_RESET -1
 #define XPIN 34
 #define YPIN 35
 #define button 27
 #define DEBOUNCE_TIME 50
+#define XPOSScreen 0
+#define YPOSScreen 1
+#define DELTAY 2
 
 int xPos, yPos, xMap = 0, yMap = 0, xSnPos = 20, ySnPos = 20, dir = 0, xRng,
                 yRng, SnakeLeng = 3, Score = 0, gameFrames = 0;
@@ -19,6 +29,7 @@ public:
   int lifetime;
 };
 
+Adafruit_SSD1327 display(128, 128, &SPI, OLED_DC, OLED_RESET, OLED_CS);
 Field board[42][42];
 hw_timer_t *LoopTimer = NULL;
 
@@ -36,9 +47,13 @@ void setup() {
   attachInterrupt(button, startstop, FALLING);
   LoopTimer = timerBegin(0, 80, true);
   timerAttachInterrupt(LoopTimer, &onTimer, true);
-  timerAlarmWrite(LoopTimer, 500000, true);
+  timerAlarmWrite(LoopTimer, 66666, true);
   timerAlarmEnable(LoopTimer);
   Serial.begin(921600);
+  display.begin(0x3D);
+  display.clearDisplay();
+  display.display();
+  display.setTextColor(SSD1327_WHITE);
   pinMode(XPIN, INPUT);
   pinMode(YPIN, INPUT);
   pinMode(button, INPUT_PULLUP);
@@ -50,6 +65,7 @@ void setup() {
     board[bor][41].isBorder = true;
   }
   if (!isGameStarted) {
+    display.clearDisplay();
     Serial.println("Wciśnij przycisk aby wystartować");
   }
 }
@@ -57,6 +73,7 @@ void setup() {
 void loop() {
   if (isSnakeDead) {
     Serial.println("Przegrałeś gierke byku, kliknij se");
+    display.clearDisplay();
     xSnPos = 20;
     ySnPos = 20;
     dir = 0;
@@ -148,16 +165,18 @@ void loop() {
             }
           }
           if (board[row][col].isBorder) {
-            Serial.print("#");
+            display.drawRect(0,0,126,126,SSD1327_WHITE);
+            display.drawRect(1,1,124,124,SSD1327_WHITE);
+            display.drawRect(2,2,122,122,SSD1327_WHITE);
+            
           } else if (board[row][col].isSnake) {
-            Serial.print("S");
+            display.fillRect(col*3,row*3,3,3,SSD1327_WHITE);
+            display.drawRect(col*3,row*3,3,3,SSD1327_WHITE);
           } else if (board[row][col].isApple) {
-            Serial.print("A");
-          } else {
-            Serial.print(" ");
+            display.fillRect(col*3,row*3,3,3,SSD1327_WHITE);
+            display.drawRect(col*3,row*3,3,3,SSD1327_WHITE);
           }
         }
-        Serial.println("");
       }
       if (AppleState == false) {
         do {
@@ -170,6 +189,8 @@ void loop() {
       }
       gameFrames = gameFrames + 1;
       newFrame = false;
+      display.display();
+      display.clearDisplay();
     }
   }
 }
