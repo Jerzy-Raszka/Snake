@@ -162,6 +162,7 @@ void setup() {
     display.setCursor(45, 100);
     display.println("the game.");
     display.display();
+    display.clearDisplay();
   }
 }
 
