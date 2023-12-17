@@ -155,14 +155,29 @@ void setup() {
   if (!isGameStarted) {
     display.clearDisplay();
     display.drawBitmap(0, 0, logo16_glcd_bmp, 128, 64, SSD1327_WHITE);
-
+    display.setTextSize(1);
+    display.setTextColor(SSD1327_WHITE);
+    display.setCursor(25, 90);
+    display.println("Press to start");
+    display.setCursor(45, 100);
+    display.println("the game.");
     display.display();
   }
 }
 
 void loop() {
   if (isSnakeDead) {
-    Serial.println("Przegrałeś gierke byku, kliknij se");
+    display.clearDisplay();
+    display.drawBitmap(0, 0, logo16_glcd_bmp, 128, 64, SSD1327_WHITE);
+    display.setTextSize(1);
+    display.setTextColor(SSD1327_WHITE);
+    display.setCursor(20, 90);
+    display.println("Press to restart");
+    display.setCursor(43, 100);
+    display.println("the game.");
+    display.setCursor(45, 120);
+    display.println("Score: " + String(Score));
+    display.display();
     display.clearDisplay();
     xSnPos = 20;
     ySnPos = 20;
