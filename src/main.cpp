@@ -91,6 +91,7 @@ void loop() {
       }
     }
     board[xSnPos][ySnPos].isSnake = true;
+    board[ySnPos][xSnPos].lifetime = gameFrames + SnakeLeng;
   }
   if (isGameStarted) {
     xPos = analogRead(XPIN);
